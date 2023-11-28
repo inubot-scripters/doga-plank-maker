@@ -12,6 +12,8 @@ public class Domain implements Service {
 
   private Servant servant;
   private LogType logType;
+  private boolean usingRunePouch;
+  private boolean stopping;
 
   private boolean configured;
 
@@ -19,18 +21,9 @@ public class Domain implements Service {
   public void notify(ScriptConfigEvent event) {
     this.servant = event.getSource().get("Servant");
     this.logType = event.getSource().get("Log");
+    this.usingRunePouch = event.getSource().getBoolean("Rune Pouch");
 
     this.configured = true;
-  }
-
-  @Override
-  public void onSubscribe() {
-
-  }
-
-  @Override
-  public void onUnsubscribe() {
-
   }
 
   public Servant getServant() {
@@ -41,7 +34,29 @@ public class Domain implements Service {
     return logType;
   }
 
+  public boolean isUsingRunePouch() {
+    return usingRunePouch;
+  }
+
+  public boolean isStopping() {
+    return stopping;
+  }
+
+  public void setStopping(boolean stopping) {
+    this.stopping = stopping;
+  }
+
   public boolean isConfigured() {
     return configured;
+  }
+
+  @Override
+  public void onSubscribe() {
+
+  }
+
+  @Override
+  public void onUnsubscribe() {
+
   }
 }

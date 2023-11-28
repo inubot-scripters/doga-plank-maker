@@ -3,7 +3,7 @@ package com.inubot.script.plankmaker.data;
 public enum Servant {
 
   BUTLER("Butler", 20, 5000),
-  COOK("Cook", 16, 3000),
+  //COOK("Cook", 16, 3000), //Too slow for this method to work
   DEMON_BUTLER("Demon butler", 26, 10000);
 
   private final String name;
