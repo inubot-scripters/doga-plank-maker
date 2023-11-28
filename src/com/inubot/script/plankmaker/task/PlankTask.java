@@ -46,7 +46,8 @@ public class PlankTask extends Task {
     }
 
     Npc butler = Npcs.query().names(domain.getServant().toString()).results().first();
-    if (butler == null || butler.distance() > 3) {
+    //if (butler == null || butler.distance() > 3) {
+    if (butler != null && butler.distance() > 3) {
       if (!HouseOptions.isOpen()) {
         //i fixed this in the api but needs a bot release
         InterfaceComponent component = Interfaces.query(InterfaceComposite.SETTINGS_TAB)

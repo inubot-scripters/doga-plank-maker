@@ -25,7 +25,7 @@ import java.util.function.Supplier;
     version = 1.01
 )
 @ScriptUI({
-    @ScriptOption(name = "Servant", type = Servant.class),
+    //@ScriptOption(name = "Servant", type = Servant.class),
     @ScriptOption(name = "Log", type = LogType.class),
     @ScriptOption(name = "Rune Pouch", type = boolean.class)
 })

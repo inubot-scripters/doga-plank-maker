@@ -89,11 +89,11 @@ public class BankTask extends Task {
           .quantity(1)
           .stackable(true)
           .build());
-      loadout.add(new ItemEntryBuilder()
+      /*loadout.add(new ItemEntryBuilder()
           .key("Air rune")
           .quantity(6)
           .stackable(true)
-          .build());
+          .build());*/ //already provided by staff
     }
 
     //27 instead of 28 because we still need to add coins, but we calculate that off planks
