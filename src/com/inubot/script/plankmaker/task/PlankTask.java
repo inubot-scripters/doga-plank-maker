@@ -62,7 +62,7 @@ public class PlankTask extends Task {
 
 
     if (Dialog.canContinue()) {
-      if (Dialog.getText().contains("pay me")) {
+      if (Dialog.getText().contains("pay me") || Dialog.getText().contains("desirest")) {
         wage();
       } else {
         sawmill();
