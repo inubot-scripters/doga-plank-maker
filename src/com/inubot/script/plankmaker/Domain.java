@@ -19,7 +19,7 @@ public class Domain implements Service {
 
   @Subscribe
   public void notify(ScriptConfigEvent event) {
-    this.servant = Servant.DEMON_BUTLER; //event.getSource().get("Servant");
+    this.servant = Servant.DEMON_BUTLER; //event.getSource().get("Servant"); //other servants are simply not fast enough
     this.logType = event.getSource().get("Log");
     this.usingRunePouch = event.getSource().getBoolean("Rune Pouch");
 

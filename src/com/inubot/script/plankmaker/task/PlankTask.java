@@ -2,7 +2,6 @@ package com.inubot.script.plankmaker.task;
 
 import com.google.inject.Inject;
 import com.inubot.script.plankmaker.Domain;
-import org.rspeer.game.House;
 import org.rspeer.game.adapter.component.InterfaceComponent;
 import org.rspeer.game.adapter.component.inventory.Bank;
 import org.rspeer.game.adapter.component.inventory.Inventory;
@@ -10,6 +9,7 @@ import org.rspeer.game.adapter.scene.Npc;
 import org.rspeer.game.component.*;
 import org.rspeer.game.component.tdi.Magic;
 import org.rspeer.game.component.tdi.Spell;
+import org.rspeer.game.house.House;
 import org.rspeer.game.scene.Npcs;
 import org.rspeer.game.script.Task;
 import org.rspeer.game.script.TaskDescriptor;
@@ -26,7 +26,7 @@ public class PlankTask extends Task {
 
   @Override
   public boolean execute() {
-    if (!Inventory.backpack().contains(iq -> iq.names(domain.getLogType().toString()).results())) {
+    if (!Inventories.backpack().contains(iq -> iq.names(domain.getLogType().toString()).results())) {
       return false;
     }
 
@@ -71,7 +71,7 @@ public class PlankTask extends Task {
       return true;
     }
 
-    Inventory.backpack().use(
+    Inventories.backpack().use(
         iq -> iq.names(domain.getLogType().toString()).results().first(),
         butler
     );

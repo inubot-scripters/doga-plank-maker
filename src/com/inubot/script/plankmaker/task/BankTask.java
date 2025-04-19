@@ -4,16 +4,17 @@ import com.google.inject.Inject;
 import com.inubot.script.plankmaker.Domain;
 import com.inubot.script.plankmaker.data.LogType;
 import com.inubot.script.plankmaker.data.Servant;
-import org.rspeer.game.House;
 import org.rspeer.game.adapter.component.inventory.Bank;
 import org.rspeer.game.adapter.component.inventory.Inventory;
 import org.rspeer.game.adapter.scene.SceneObject;
 import org.rspeer.game.component.Interfaces;
+import org.rspeer.game.component.Inventories;
 import org.rspeer.game.component.tdi.Magic;
 import org.rspeer.game.component.tdi.Spell;
 import org.rspeer.game.config.item.entry.builder.FuzzyItemEntryBuilder;
 import org.rspeer.game.config.item.entry.builder.ItemEntryBuilder;
 import org.rspeer.game.config.item.loadout.BackpackLoadout;
+import org.rspeer.game.house.House;
 import org.rspeer.game.scene.SceneObjects;
 import org.rspeer.game.script.Task;
 import org.rspeer.game.script.TaskDescriptor;
@@ -30,7 +31,7 @@ public class BankTask extends Task {
 
   @Override
   public boolean execute() {
-    if (Inventory.backpack().contains(iq -> iq.names(domain.getLogType().toString()).results())) {
+    if (Inventories.backpack().contains(iq -> iq.names(domain.getLogType().toString()).results())) {
       return false;
     }
 
@@ -66,7 +67,7 @@ public class BankTask extends Task {
       return true;
     }
 
-    loadout.withdraw(Inventory.bank());
+    loadout.withdraw(Inventories.bank());
     return true;
   }
 
@@ -112,6 +113,12 @@ public class BankTask extends Task {
         .quantity(planks)
         .stackable(false)
         .build());
+
+    loadout.setOutOfItemListener(e -> {
+      if (!e.contained(Inventories.backpack())) {
+        domain.setStopping(true);
+      }
+    });
 
     return loadout;
   }
