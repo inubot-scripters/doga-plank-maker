@@ -1,5 +1,6 @@
 package com.inubot.script.plankmaker;
 
+import com.inubot.script.plankmaker.commons.RSPeerPaintScheme;
 import com.inubot.script.plankmaker.task.*;
 import org.rspeer.commons.ArrayUtils;
 import org.rspeer.commons.StopWatch;
@@ -7,16 +8,16 @@ import org.rspeer.game.script.Task;
 import org.rspeer.game.script.TaskScript;
 import org.rspeer.game.script.meta.ScriptMeta;
 import org.rspeer.game.script.meta.paint.PaintBinding;
-import org.rspeer.game.script.meta.paint.PaintScheme;
 
 import java.util.function.Supplier;
 
 @ScriptMeta(
-    name = "Plank Maker",
-    paint = PaintScheme.class,
+    name = "RSPeer Plank Maker",
+    paint = RSPeerPaintScheme.class,
+    model = Config.class,
     desc = "Start on PvP world. Requires a Demon Butler",
     developer = "Doga",
-    version = 1.02
+    version = 1.0
 )
 public class PlankMaker extends TaskScript {
 
