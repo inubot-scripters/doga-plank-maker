@@ -1,22 +1,22 @@
 package com.inubot.script.plankmaker.task;
 
 import com.google.inject.Inject;
-import com.inubot.script.plankmaker.Domain;
+import com.inubot.script.plankmaker.Config;
 import org.rspeer.game.script.Task;
 import org.rspeer.game.script.TaskDescriptor;
 
 @TaskDescriptor(name = "Stopping", stoppable = true)
 public class StopTask extends Task {
 
-  private final Domain domain;
+  private final Config config;
 
   @Inject
-  public StopTask(Domain domain) {
-    this.domain = domain;
+  public StopTask(Config config) {
+    this.config = config;
   }
 
   @Override
   public boolean execute() {
-    return domain.isStopping();
+    return config.isStopping();
   }
 }

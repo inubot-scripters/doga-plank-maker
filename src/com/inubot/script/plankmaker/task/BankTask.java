@@ -1,11 +1,10 @@
 package com.inubot.script.plankmaker.task;
 
 import com.google.inject.Inject;
-import com.inubot.script.plankmaker.Domain;
+import com.inubot.script.plankmaker.Config;
 import com.inubot.script.plankmaker.data.LogType;
 import com.inubot.script.plankmaker.data.Servant;
 import org.rspeer.game.adapter.component.inventory.Bank;
-import org.rspeer.game.adapter.component.inventory.Inventory;
 import org.rspeer.game.adapter.scene.SceneObject;
 import org.rspeer.game.component.Interfaces;
 import org.rspeer.game.component.Inventories;
@@ -22,16 +21,16 @@ import org.rspeer.game.script.TaskDescriptor;
 @TaskDescriptor(name = "Banking")
 public class BankTask extends Task {
 
-  private final Domain domain;
+  private final Config config;
 
   @Inject
-  public BankTask(Domain domain) {
-    this.domain = domain;
+  public BankTask(Config config) {
+    this.config = config;
   }
 
   @Override
   public boolean execute() {
-    if (Inventories.backpack().contains(iq -> iq.names(domain.getLogType().toString()).results())) {
+    if (Inventories.backpack().contains(iq -> iq.names(config.getLogType().toString()).results())) {
       return false;
     }
 
@@ -41,7 +40,7 @@ public class BankTask extends Task {
 
     if (House.isInside()) {
       Magic.cast(Spell.Modern.CAMELOT_TELEPORT);
-      sleepWhile(House::isInside, 5);
+      sleepUntil(() -> !House.isInside(), 5);
       return true;
     }
 
@@ -54,7 +53,7 @@ public class BankTask extends Task {
     }
 
     BackpackLoadout loadout = buildLoadout();
-    if (loadout.isBagged()) {
+    if (loadout.isBackpackValid()) {
       if (Bank.isOpen()) {
         Interfaces.closeSubs();
       }
@@ -73,7 +72,7 @@ public class BankTask extends Task {
 
   private BackpackLoadout buildLoadout() {
     BackpackLoadout loadout = new BackpackLoadout("plankmaking");
-    if (domain.isUsingRunePouch()) {
+    if (config.isRunePouch()) {
       loadout.add(new FuzzyItemEntryBuilder()
           .key("rune pouch")
           .quantity(1)
@@ -98,9 +97,9 @@ public class BankTask extends Task {
     }
 
     //27 instead of 28 because we still need to add coins, but we calculate that off planks
-    int planks = Math.min(27 - loadout.getAllocated(), domain.getServant().getInventoryCapacity());
-    LogType type = domain.getLogType();
-    Servant slave = domain.getServant();
+    int planks = Math.min(27 - loadout.getAllocated(), config.getServant().getInventoryCapacity());
+    LogType type = config.getLogType();
+    Servant slave = config.getServant();
     int cashmoney = (planks * type.getSawmillCost()) + slave.getWage();
 
     loadout.add(new ItemEntryBuilder()
@@ -116,7 +115,7 @@ public class BankTask extends Task {
 
     loadout.setOutOfItemListener(e -> {
       if (!e.contained(Inventories.backpack())) {
-        domain.setStopping(true);
+        config.setStopping(true);
       }
     });
 
