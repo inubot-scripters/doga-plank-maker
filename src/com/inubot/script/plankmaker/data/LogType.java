@@ -5,7 +5,8 @@ public enum LogType {
   REGULAR("Logs", 100),
   OAK("Oak logs", 250),
   TEAK("Teak logs", 500),
-  MAHOGANY("Mahogany logs", 1500);
+  MAHOGANY("Mahogany logs", 1500),
+  CAMPHOR("Camphor logs", 2500);
 
   private final String name;
   private final int sawmillCost;
