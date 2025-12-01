@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 @ScriptMeta(
     name = "Plank Maker",
     paint = PaintScheme.class,
-    desc = "Makes planks on PvP world using the PoH method. Great for irons!",
+    desc = "Start on PvP world. Requires a Demon Butler",
     developer = "Doga",
     version = 1.02
 )
